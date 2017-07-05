@@ -72,6 +72,22 @@ public class relogioGui {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		 try {
+                    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                        if ("Windows".equals(info.getName())) {
+                            javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                            break;
+                        }
+                    }
+                } catch (ClassNotFoundException ex) {
+                    java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                    java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                }
 		
 		String nome = System.getProperty("os.name");//recupera o nome do SO
 		//if(nome.substring(0, 7).equals("Windows")){
@@ -238,14 +254,33 @@ public class relogioGui {
 		
 	}
 	
-	public void alterar(){
+	public void alterar(){ // está com problemas  com eu java havia ti falado cassio 
 		String hora = textFieldHA.getText();
 		String minuto = textFieldMA.getText();
 		String segundo = textFieldSA.getText();
-		if(!hora.equals("")){
+			if(!hora.equals("")){
 			try{
 				int h = Integer.parseInt(hora);
 				controller.setHoras(h);
+                                lblH.setText(h+"");
+//                                Timer timer = new Timer();
+//                                TimerTask task = new TimerTask() {
+//                                    public void run() {
+//                                        lblH.setText(i+"");
+//                                    }
+//                                };
+//                                for(int o=0; o<100; o++)
+//                                timer.schedule(task, 1000);
+                                for(i=h;i<24; i++)  {// essa funcao deve ser feita por uma thread                                    
+                                    try {
+                                        Thread.sleep(1000);
+                                        lblH.setText(i+"");
+                                    } catch (InterruptedException ex) {
+                                        
+                                    }                                    
+                                    if (i==23)
+                                        i=0;
+                                }                             
 			}catch(Exception e){
 				e.printStackTrace();
 			}
