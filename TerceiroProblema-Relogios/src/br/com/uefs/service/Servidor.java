@@ -21,7 +21,8 @@ import org.json.JSONObject;
 
 /**
  *
- * @author cassio
+ * @author cassio e marcos
+ * @version 1.0
  */
 public class Servidor extends Thread {
 
