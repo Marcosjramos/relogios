@@ -51,15 +51,18 @@ public class Gui {
     /**
      * variavel para tela . <br/>
      */
-    private JTextField textField;
-    private Controller control;
-
+    private JTextField textField;  /**  varaivel para  corresponder  as tela que vai aparecer.  <br/>*/
+    private Controller control;   /**  variavel  para  intacia o controller  do sistema. <br/> */
+    
+    /** A seguir a função do construtor que chamar a interface do sistema. <br/>*/
     public Gui() {
-        Incializar();
+        Incializar();   /** chama função da interface  do sistema.  <br/> */
     }
 
     public void Incializar() {
-        try {
+        
+         /** a seguir o if que vai set icones e cores na interface do sistema. <br/>  */
+         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -76,96 +79,96 @@ public class Gui {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        frame = new JFrame();
+        frame = new JFrame(); /**  instancia e set os parametros  corresponde a interface do0 sistema. <br/> */
         frame.setBounds(280, 290, 520, 520);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
-        frame.setTitle("Relogios");
+        frame.setTitle("Relogios");/**set o nome  da  tela . <br/> */
 
-        ButtonHandller btmH = new ButtonHandller();
+        ButtonHandller btmH = new ButtonHandller(); /** criar  o objeto que vai  ser usado para verificara qual ação  o botão vai ser executada . <br/> */
 
-        JLabel relogio = new JLabel(" ");
+        JLabel relogio = new JLabel(" ");/** para instancia o relogio  e  colocara seus parametros. <br/> */
         relogio.setHorizontalAlignment(SwingConstants.CENTER);
         relogio.setFont(new Font("Tahoma", Font.PLAIN, 62));
         relogio.setBounds(90, 27, 360, 75);
-        frame.getContentPane().add(relogio);
-        control = new Controller(relogio);
+        frame.getContentPane().add(relogio);/**  adicionar na  tela . <br/> */
+        control = new Controller(relogio); /** criar o objeto do  crontroller. <br/> */
 
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP); /**  instancia pane  que  vai abrigar as configurações no caso as ações que usuario pode fazer no sistema . <br/> */
         tabbedPane.setBounds(20, 80, 450, 350);
-        frame.getContentPane().add(tabbedPane);
+        frame.getContentPane().add(tabbedPane);/** adicinara na tela . <br/> */
 
         JPanel panel = new JPanel();
-        tabbedPane.addTab("Configurações", null, panel, null);
+        tabbedPane.addTab("Configurações", null, panel, null);/* set  o nome  do pane. <br/> */
         panel.setLayout(null);
 
-        hora = new JTextField();
+        hora = new JTextField();/**  instancia a tela para altera a a hora  e  seta seus parametros.  <br/> */
         hora.setBounds(12, 60, 89, 25);
-        frame.getContentPane().add(hora);
+        frame.getContentPane().add(hora); /**  adicionar na tela .<br/>*/
         hora.setColumns(10);
-        panel.add(hora);
+        panel.add(hora); /**  adicionar no pane.<br/>*/
 
-        min = new JTextField();
+        min = new JTextField();/**  instancia a tela para altera os  minutos  e  seta seus parametros.  <br/> */
         min.setBounds(170, 60, 89, 25);
-        frame.getContentPane().add(min);
+        frame.getContentPane().add(min); /**  adicionar na tela .<br/>*/
         min.setColumns(10);
-        panel.add(min);
+        panel.add(min);  /**  adicionar no pane.<br/>*/
 
-        seg = new JTextField();
+        seg = new JTextField();/**  instancia a tela para altera os  segndos   e  seta seus parametros.  <br/> */
         seg.setBounds(320, 60, 89, 25);
-        frame.getContentPane().add(seg);
+        frame.getContentPane().add(seg); /**  adicionar na tela .<br/>*/
         seg.setColumns(10);
-        panel.add(seg);
+        panel.add(seg);   /**  adicionar no pane.<br/>*/
 
-        JButton btnSetHora = new JButton("Alterar Hora");
-        btnSetHora.addActionListener(btmH);
-        btnSetHora.setBounds(11, 85, 150, 30);
-        frame.getContentPane().add(btnSetHora);
-        panel.add(btnSetHora);
+        JButton bHora = new JButton("Alterar Hora"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
+        bHora.addActionListener(btmH);
+        bHora.setBounds(11, 85, 150, 30);
+        frame.getContentPane().add(bHora);
+        panel.add(bHora);
 
-        JButton btnSetMinuto = new JButton("Alterar Minutos");
+        JButton btnSetMinuto = new JButton("Alterar Minutos");  /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
         btnSetMinuto.addActionListener(btmH);
         btnSetMinuto.setBounds(135, 85, 155, 30);
         frame.getContentPane().add(btnSetMinuto);
         panel.add(btnSetMinuto);
 
-        JButton btnSetSegundo = new JButton("Alterar Segundos");
-        btnSetSegundo.addActionListener(btmH);
-        btnSetSegundo.setBounds(265, 85, 155, 30);
-        frame.getContentPane().add(btnSetSegundo);
-        panel.add(btnSetSegundo);
+        JButton bSegundo = new JButton("Alterar Segundos"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
+        bSegundo.addActionListener(btmH);
+        bSegundo.setBounds(265, 85, 155, 30);
+        frame.getContentPane().add(bSegundo);
+        panel.add(bSegundo);
 
-        JButton btnStart = new JButton("Start");
-        btnStart.addActionListener(btmH);
-        btnStart.setBounds(11, 140, 89, 23);
-        frame.getContentPane().add(btnStart);
-        panel.add(btnStart);
+        JButton bStart = new JButton("Start");  /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
+        bStart.addActionListener(btmH);
+        bStart.setBounds(11, 140, 89, 23);
+        frame.getContentPane().add(bStart);
+        panel.add(bStart);
 
-        JButton btnConectar = new JButton("Conectar");
-        btnConectar.addActionListener(btmH);
-        btnConectar.setBounds(11, 165, 89, 23);
-        frame.getContentPane().add(btnConectar);
-        panel.add(btnConectar);
+        JButton bConectar = new JButton("Conectar"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
+        bConectar.addActionListener(btmH);
+        bConectar.setBounds(11, 165, 89, 23);
+        frame.getContentPane().add(bConectar);
+        panel.add(bConectar);
 
-        JButton btnStop = new JButton("Stop");
-        btnStop.addActionListener(btmH);
-        btnStop.setBounds(11, 190, 89, 23);
-        frame.getContentPane().add(btnStop);
-        panel.add(btnStop);
+        JButton bStop = new JButton("Sair"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
+        bStop.addActionListener(btmH);
+        bStop.setBounds(11, 190, 89, 23);
+        frame.getContentPane().add(bStop);
+        panel.add(bStop);
 
-        drift = new JTextField();
+        drift = new JTextField(); /** cira a caixa de texto para  receber o novo drift. <br/> */
         drift.setBounds(300, 140, 40, 23);
         frame.getContentPane().add(drift);
         drift.setColumns(10);
         panel.add(drift);
 
-        JButton btnSetDrift = new JButton("Alterar Drift");
-        btnSetDrift.addActionListener(btmH);
-        btnSetDrift.setBounds(290, 165, 89, 23);
-        frame.getContentPane().add(btnSetDrift);
-        panel.add(btnSetDrift);
+        JButton bDrift = new JButton("Alterar Drift"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
+        bDrift.addActionListener(btmH);
+        bDrift.setBounds(290, 165, 89, 23);
+        frame.getContentPane().add(bDrift);
+        panel.add(bDrift);
     }
-
+     /**  a seguir  a função que vai verificar   qual o botão usuario clicou  e  relizar ação escolhida.<br/>*/
     private class ButtonHandller implements ActionListener {
 
         @Override
@@ -176,6 +179,7 @@ public class Gui {
 
             } else if ("Stop".equals(e.getActionCommand())) {
                 control.stop();
+                frame.dispose();
 
             } else if ("Alterar Drift".equals(e.getActionCommand())) {
                 if (" ".equals(drift.getText())) {

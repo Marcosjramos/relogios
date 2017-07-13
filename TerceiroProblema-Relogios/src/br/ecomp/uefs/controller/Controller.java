@@ -39,6 +39,7 @@ public class Controller {
 
 	public void stop() {
 		System.out.println(" teste");
+                
 	}
 
 	public void setSeg(int aux) {
