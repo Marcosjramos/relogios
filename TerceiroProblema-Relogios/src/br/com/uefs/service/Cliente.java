@@ -21,22 +21,29 @@ import sun.security.x509.IPAddressName;
 
 /**
  *
- * @author cassio
+ * @author cassio e marcos
+ * @version 1.0
  */
+
+/** A função a seguir é um thread  que corresponderá relogio/usuario do sistema . <br/>*/
 public class Cliente extends Thread{
     
-    private String ip;
-    private int porta;
-
+    private String ip; /** variavel para  corresponder ao endereço para que ocorrá  a comunicação  . <br/>*/
+    private int porta; /** variavel para  corresponder aporta para que ocorrá  a comunicação  . <br/>*/
+     
+    /**  A seguir  o construtor  da classe  que será usada no sistema para isso é passado alguns parametros que são :
+     * @param String com endereço ip  e <br/>
+     * @param  int  com numero da porta <br/>*/
     public Cliente(String ip, int porta) {
         this.ip = ip;
         this.porta = porta;
     }
-
+      
+    /**A seguir  uma função é sobre escrita  para que  possa ocorrer  comunicação que é  função run .<br/> */
     @Override
     public void run() {
         try {
-            conexao();
+            conexao(); 
         } catch (JSONException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }

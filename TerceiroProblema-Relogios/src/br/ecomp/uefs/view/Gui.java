@@ -193,7 +193,7 @@ public class Gui {
                     JOptionPane.showMessageDialog(null, "Insira um valor da Hora!!");
                 } else {
                     int aux = Integer.parseInt(hora.getText());
-                    control.setHr(aux);
+                    control.setHora(aux);
 
                 }
             } else if ("Alterar Minutos".equals(e.getActionCommand())) {

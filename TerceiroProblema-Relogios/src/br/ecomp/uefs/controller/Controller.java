@@ -54,7 +54,7 @@ public class Controller {
 		rel.update();
 	}
          /**  a seguir  a  função  que vai ser chamda quando usuario  clicar em alterar na hora , ocorrendo a alteração do segundo da contagem do tempo. <br/>*/
-	public void setHr(int aux) {
+	public void setHora(int aux) {
 		rel.setHora(aux);
 		rel.update();
 	}  
