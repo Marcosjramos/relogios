@@ -177,8 +177,8 @@ public class Gui {
 
                 control.start();
 
-            } else if ("Stop".equals(e.getActionCommand())) {
-                control.stop();
+            } else if ("Sair".equals(e.getActionCommand())) {
+    
                 frame.dispose();
 
             } else if ("Alterar Drift".equals(e.getActionCommand())) {
