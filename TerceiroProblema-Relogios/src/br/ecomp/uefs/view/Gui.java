@@ -5,6 +5,8 @@
  */
 package br.ecomp.uefs.view;
 
+import br.com.uefs.service.Cliente;
+import br.com.uefs.service.Servidor;
 import br.ecomp.uefs.controller.Controller;
 import br.ecomp.uefs.util.Tempo;
 import java.awt.Font;
@@ -190,7 +192,6 @@ public class Gui {
                 } else {
                     int aux = Integer.parseInt(hora.getText());
                     control.setHr(aux);
-
                 }
             } else if ("Alterar Minutos".equals(e.getActionCommand())) {
                 if ("".equals(min.getText())) {
@@ -210,8 +211,13 @@ public class Gui {
             } else if ("Conectar".equals(e.getActionCommand())) {
                 String ip = JOptionPane.showInputDialog("Informe o IP do grupo", "");
                 System.out.println("IP do grupo - " + ip);
+                //Servidor s = new Servidor(ip, 1234);
+                
+                Cliente c = new Cliente(ip, 1234);
+                c.start();
+                
                 try {
-
+                     control.conectar();
                 } catch (Exception e1) {
 
                     System.out.println("Erro no envio");

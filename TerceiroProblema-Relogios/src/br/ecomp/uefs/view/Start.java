@@ -5,15 +5,21 @@
  */
 package br.ecomp.uefs.view;
 
+import br.com.uefs.service.Servidor;
 import java.awt.EventQueue;
+import java.net.SocketException;
 
 /**
  *
  * @author marcos
  */
 public class Start {
-
-    public static void main(String[] args) {
+    
+    public static Servidor s;
+    
+    public static void main(String[] args) throws SocketException {
+        s =  Servidor.getInstance(); // iniciando o cervidor
+        s.start();
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {

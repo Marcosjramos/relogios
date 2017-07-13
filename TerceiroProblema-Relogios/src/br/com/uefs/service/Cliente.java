@@ -5,6 +5,7 @@
  */
 package br.com.uefs.service;
 
+import br.com.uefs.model.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,6 +16,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sun.security.x509.IPAddressName;
@@ -27,6 +29,12 @@ public class Cliente extends Thread{
     
     private String ip;
     private int porta;
+    
+    public static Cliente conexao;
+    
+    public static Cliente getInstance() {
+        return conexao;
+    }
 
     public Cliente(String ip, int porta) {
         this.ip = ip;
@@ -70,7 +78,7 @@ public class Cliente extends Thread{
             
             String dadosRecebidos = new String (receivePacket.getData());
             System.out.println("Texto recebido do servidor :"+dadosRecebidos);
-            
+            operacao(dadosRecebidos, null);
             clientSocket.close();
             System.out.println("Socket cliente fechado");
         } catch (SocketException ex) {
@@ -82,13 +90,36 @@ public class Cliente extends Thread{
         }
     }
     
-    public void operacao(String dados) throws JSONException{
+    public void operacao(String dados, JSONArray ja) throws JSONException{
         JSONObject j = new JSONObject(dados);
         int op = j.getInt("op");
         switch (op){
             case 1:
-                
+                for (int i=0; i < ja.length(); i++) {
+                    JSONObject mJ = ja.getJSONObject(i);
+                    Usuario user = new Usuario();
+                    InetAddress ip = (InetAddress) mJ.get("ip");
+                    user.setIp(ip);
+                    user.setOrdem(mJ.getInt("ordem"));
+                    user.setStatus(mJ.getInt("status"));
+                    adcionarRelogio(user);
+                }
                 break;
+        }
+    }
+    
+    public void adcionarRelogio (Usuario user) {
+        if (Servidor.usuarios != null) {
+            boolean v = false;
+            for (Usuario u: Servidor.usuarios) {
+                if (u.getIp().equals(user.getIp())) {
+                    v = true;
+                    break;
+                }
+            }
+            if (!v){
+                Servidor.usuarios.add(user);
+            }
         }
     }
 }

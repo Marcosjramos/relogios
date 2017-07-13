@@ -5,6 +5,7 @@
  */
 package br.com.uefs.model;
 
+import br.ecomp.uefs.util.Tempo;
 import java.net.InetAddress;
 
 /**
@@ -15,9 +16,8 @@ public class Usuario {
     
     private InetAddress ip;
     private int status;
-    private int hora;
-    private int min;
-    private int seg;
+    private int ordem;
+   // private Tempo tempo;
 
     public InetAddress getIp() {
         return ip;
@@ -35,29 +35,12 @@ public class Usuario {
         this.status = status;
     }
 
-    public int getHora() {
-        return hora;
+    public int getOrdem() {
+        return ordem;
     }
 
-    public void setHora(int hora) {
-        this.hora = hora;
+    public void setOrdem(int ordem) {
+        this.ordem = ordem;
     }
-
-    public int getMin() {
-        return min;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
-    }
-
-    public int getSeg() {
-        return seg;
-    }
-
-    public void setSeg(int seg) {
-        this.seg = seg;
-    }
-    
     
 }

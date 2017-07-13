@@ -7,6 +7,8 @@ package br.com.uefs.service;
 
 
 import br.com.uefs.model.Usuario;
+import br.ecomp.uefs.controller.Controller;
+import br.ecomp.uefs.util.Tempo;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,13 +30,23 @@ public class Servidor extends Thread {
 
     private int porta;
     private int numCont;
-    private List<Usuario> usuarios;
+    public static List<Usuario> usuarios;
     private static InetAddress ipUsuario;
     private DatagramSocket serverSocket;
+    
     private byte[] receiveData;
     private byte[] sendData;
      DatagramPacket receivePacket;
-
+     public static Servidor s;
+     
+     public static Servidor getInstance() throws SocketException{
+         if (s == null) {
+             s = new Servidor(1234, 0);
+             return s;
+         } else {
+            return s;
+         }
+     }
     public Servidor(int porta, int numCont) throws SocketException {
         this.porta = porta;
         this.numCont = numCont;
@@ -47,7 +60,7 @@ public class Servidor extends Thread {
     @Override
     public void run() {
         //    super.run(); //To change body of generated methods, choose Tools | Templates.
-        try {
+       try {
             
 
             while (true) {
@@ -71,7 +84,8 @@ public class Servidor extends Thread {
                     System.out.println(verificar);
                     if (!sentence.isEmpty() && verificar.equals("{")){
                     System.out.println(sentence);
-                    operacao(sentence, port);
+//                    Tempo t = Controller.getInstace().getRel(); 
+                    operacao(sentence, port, 0,0,0,0);
                     }
                 //comunicacao(IpAddress, port, capitalizedSentence, serverSocket);
             }
@@ -81,7 +95,7 @@ public class Servidor extends Thread {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JSONException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     public void comunicacao(InetAddress IpAddress, int port, String capitalizedSentence) throws IOException {
@@ -95,18 +109,19 @@ public class Servidor extends Thread {
         System.out.println("OK\n");
     }
 
-    public void operacao(String s, int porta) throws JSONException, IOException {
+    public void operacao(String s, int porta, int hora, int min, int seg, long milli) throws JSONException, IOException {
         JSONObject j = new JSONObject(s);
         int regra = j.getInt("op");
         System.out.println(regra);
         switch (regra) {
-            case 1:
+            case 1: // Cadastrar usuário
+                
                 Usuario u = new Usuario();
+               
                 u.setIp(ipUsuario);
                 u.setStatus(0);
-                u.setHora(0);
-                u.setMin(0);
-                u.setSeg(0);
+              //  u.setTempo(t);
+                JSONArray ja = new JSONArray();
                 if (usuarios != null) {
                     boolean status = false;
                     for (Usuario user : usuarios) {
@@ -116,13 +131,21 @@ public class Servidor extends Thread {
                         }
                     }
                     if (!status) {
+                        if (usuarios.size() == 0) {
+                            u.setStatus(1);
+                        } else {
+                            u.setOrdem(usuarios.size());
+                        }
                         usuarios.add(u);
+                        
+                        
                         for (Usuario usuario : usuarios) {
                             j = new JSONObject();
                             j.put("op", 1);
-                            j.put("h", 10);
-                            j.put("m", 30);
-                            j.put("s", 0);
+                            j.put("h", hora);
+                            j.put("m", min);
+                            j.put("s", seg);
+                            ja.put(j);
                             System.out.println("IP do usuario: 3  " + ipUsuario.toString());
                             comunicacao(usuario.getIp(), porta, j.toString());
                         }
@@ -132,10 +155,11 @@ public class Servidor extends Thread {
             case 2:
                 for (Usuario usuario : usuarios) {
                     j = new JSONObject();
+                
                     j.put("op", 1);
-                    j.put("h", 10);
-                    j.put("m", 30);
-                    j.put("s", 0);
+                    j.put("h", hora);
+                    j.put("m", min);
+                    j.put("s", seg);
                     comunicacao(usuario.getIp(), porta, j.toString());
                 }
                 break;
