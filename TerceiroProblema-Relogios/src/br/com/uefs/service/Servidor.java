@@ -138,15 +138,14 @@ public class Servidor extends Thread {
                         }
                         usuarios.add(u);
                         
-                        
                         for (Usuario usuario : usuarios) {
                             j = new JSONObject();
                             j.put("op", 1);
-                            j.put("h", hora);
-                            j.put("m", min);
-                            j.put("s", seg);
+                            j.put("ip", ipUsuario.getHostName());
+                            j.put("status", u.getHora());
+                            j.put("ordem", u.getOrdem());
                             ja.put(j);
-                            System.out.println("IP do usuario: 3  " + ipUsuario.toString());
+                            System.out.println("Enviado usuarios  " + ipUsuario.toString());
                             comunicacao(usuario.getIp(), porta, j.toString());
                         }
                     }

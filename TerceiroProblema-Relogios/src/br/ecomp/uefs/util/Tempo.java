@@ -104,21 +104,34 @@ public class Tempo extends Thread{
                 JSONObject j = new JSONObject();
                 j.put("op", 2);
                 Start.s.operacao(j.toString(), 1234, hora, min, seg, mille);
-                if (seg > 60) {
-                    min += 1;
-                    seg = 0;
-                    relo = hora+":"+min+":"+seg;
-                    tela.setText(relo);
-                }else if (min > 60) {
-                    hora += 1;
-                    min = 0;
-                    relo = hora+":"+min+":"+seg;
-                    tela.setText(relo);
-                } else if (hora > 23) {
+                if( hora == 23 && min == 59 && seg == 59 ){
+                    hora = 00;
+                    min = 00;
+                    seg = 00;
+                     relo = hora+":"+min+":"+seg;
+                }
+                if (hora > 23) {
                     hora = 0;
                     relo = hora+":"+min+":"+seg;
                     tela.setText(relo);
                         }
+                else if (min > 59) {
+                    hora += 1;
+                    min = 0;
+                    relo = hora+":"+min+":"+seg;
+                    tela.setText(relo);
+                }
+               else if (seg > 59 ) {
+                   if (min == 59 ){
+                    min = 00;
+                    hora += 1;
+                   } else {
+                       min += 1;
+                   }
+                    seg = 0;
+                    relo = hora+":"+min+":"+seg;
+                    tela.setText(relo);
+                } 
                     } catch (InterruptedException e) {
                             System.out.println("Erro \n");
                 } catch (JSONException ex) {

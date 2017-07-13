@@ -23,10 +23,14 @@ import sun.security.x509.IPAddressName;
 
 /**
  *
- * @author cassio
+ * @author cassio e marcos
+ * @version 1.0
  */
+
+/** A função a seguir é um thread  que corresponderá relogio/usuario do sistema . <br/>*/
 public class Cliente extends Thread{
     
+
     private String ip;
     private int porta;
     
@@ -36,15 +40,23 @@ public class Cliente extends Thread{
         return conexao;
     }
 
+    //private String ip; /** variavel para  corresponder ao endereço para que ocorrá  a comunicação  . <br/>*/
+    //private int porta; /** variavel para  corresponder aporta para que ocorrá  a comunicação  . <br/>*/
+     
+    /**  A seguir  o construtor  da classe  que será usada no sistema para isso é passado alguns parametros que são :
+     * @param String com endereço ip  e <br/>
+     * @param  int  com numero da porta <br/>*/
+
     public Cliente(String ip, int porta) {
         this.ip = ip;
         this.porta = porta;
     }
-
+      
+    /**A seguir  uma função é sobre escrita  para que  possa ocorrer  comunicação que é  função run .<br/> */
     @Override
     public void run() {
         try {
-            conexao();
+            conexao(); 
         } catch (JSONException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,7 +90,7 @@ public class Cliente extends Thread{
             
             String dadosRecebidos = new String (receivePacket.getData());
             System.out.println("Texto recebido do servidor :"+dadosRecebidos);
-            operacao(dadosRecebidos, null);
+            operacao(dadosRecebidos);
             clientSocket.close();
             System.out.println("Socket cliente fechado");
         } catch (SocketException ex) {
@@ -90,20 +102,20 @@ public class Cliente extends Thread{
         }
     }
     
-    public void operacao(String dados, JSONArray ja) throws JSONException{
+    public void operacao(String dados) throws JSONException, UnknownHostException{
         JSONObject j = new JSONObject(dados);
         int op = j.getInt("op");
         switch (op){
             case 1:
-                for (int i=0; i < ja.length(); i++) {
-                    JSONObject mJ = ja.getJSONObject(i);
+                
+                System.out.println((String) j.get("ip"));
                     Usuario user = new Usuario();
-                    InetAddress ip = (InetAddress) mJ.get("ip");
+                    InetAddress ip = InetAddress.getByName(j.getString("ip"));
                     user.setIp(ip);
-                    user.setOrdem(mJ.getInt("ordem"));
-                    user.setStatus(mJ.getInt("status"));
+                    user.setOrdem(j.getInt("ordem"));
+                    user.setStatus(j.getInt("status"));
                     adcionarRelogio(user);
-                }
+                    
                 break;
         }
     }
