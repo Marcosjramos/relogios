@@ -96,4 +96,10 @@ public class Controller {
         rel.setHora(aux);
         rel.update();
     }
+
+    public Tempo getRel() {
+        return rel;
+    }
+    
+    
 }

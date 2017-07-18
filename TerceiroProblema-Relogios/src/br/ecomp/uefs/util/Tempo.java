@@ -19,8 +19,8 @@ import org.json.JSONObject;
  * @version 1.0
  */
 public class Tempo extends Thread{ 
-    private int hora,min,seg; /** variaveis para representra horas, minutos e segundo. <br/> */
-    private long  mille;      /** variavel para corresponder milizimos de segundos que tem as alterações de tempo. <br/> */
+    public static int hora,min,seg; /** variaveis para representra horas, minutos e segundo. <br/> */
+    public static long  mille;      /** variavel para corresponder milizimos de segundos que tem as alterações de tempo. <br/> */
     private String relo;      /** para representar o horario.  <br/> */
     private JLabel tela;      /** variavel que vai receber o horario completo.  <br/> */
     
@@ -100,11 +100,17 @@ public class Tempo extends Thread{
                 Thread.sleep(mille);
                 relo = hora+":"+min+":"+seg;
                 tela.setText(relo);
-                System.out.println("Drift na contagem - "+ mille);
+                /*System.out.println("Drift na contagem - "+ mille);
                 JSONObject j = new JSONObject();
-                j.put("op", 2);
-                Start.s.operacao(j.toString(), 1234, hora, min, seg, mille);
+                    
+                    j.put("h", hora);
+                    j.put("m", min);
+                    j.put("s", seg);
+                    j.put("op", 2);
+                    System.out.println("Verificacao: "+ j.toString());
+                Start.s.operacao(j, 1234, hora, min, seg, mille);*/
                 if( hora == 23 && min == 59 && seg == 59 ){
+                   Thread.sleep(mille);
                     hora = 00;
                     min = 00;
                     seg = 00;
@@ -134,14 +140,8 @@ public class Tempo extends Thread{
                 } 
                     } catch (InterruptedException e) {
                             System.out.println("Erro \n");
-                } catch (JSONException ex) {
-            Logger.getLogger(Tempo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Tempo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                }
             }
-
-
     }
 
     public int getHora() {

@@ -188,25 +188,29 @@ public class Gui {
                     JOptionPane.showMessageDialog(null, "Insira um valor de Drift!!");
                 } else {
                     long aux = Long.parseLong(drift.getText());
-                    System.out.println("TESTE: "+aux);
-                    control.setDrift(aux);
+                    //System.out.println("TESTE: "+aux);
+                    //control.setDrift(aux);
+                    Tempo.mille = aux;
                 }
             } else if ("Alterar Hora".equals(e.getActionCommand())) {
                 if ("".equals(hora.getText())) {
                     JOptionPane.showMessageDialog(null, "Insira um valor da Hora!!");
                 } else {
                     int aux = Integer.parseInt(hora.getText());
-
-                    //control.setHr(aux);
-                    control.setHora(aux);
-
+                    if (aux < 24){
+                        Tempo.hora = aux;
+                        //control.setHora(aux);
+                    }
                 }
             } else if ("Alterar Minutos".equals(e.getActionCommand())) {
                 if ("".equals(min.getText())) {
                     JOptionPane.showMessageDialog(null, "Insira um valor de Minutos!!");
                 } else {
                     int aux = Integer.parseInt(min.getText());
-                    control.setMin(aux);
+                    if (aux < 60) {
+                        Tempo.min =  aux;
+                    //control.setMin(aux);
+                    }
                 }
 
             } else if ("Alterar Segundos".equals(e.getActionCommand())) {
@@ -214,7 +218,10 @@ public class Gui {
                     JOptionPane.showMessageDialog(null, "Insira um valor de Segundos!!");
                 } else {
                     int aux = Integer.parseInt(seg.getText());
-                    control.setSeg(aux);
+                    if (aux < 60) {
+                        Tempo.seg = aux;
+//control.setSeg(aux);
+                    } 
                 }
             } else if ("Conectar".equals(e.getActionCommand())) {
                 String ip = JOptionPane.showInputDialog("Informe o IP do grupo", "");
@@ -225,10 +232,10 @@ public class Gui {
                 c.start();
                 
                 try {
-                     control.conectar();
+                     //control.conectar();
                 } catch (Exception e1) {
 
-                    System.out.println("Erro no envio");
+                    //System.out.println("Erro no envio");
                 }
             }
 

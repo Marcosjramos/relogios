@@ -20,6 +20,7 @@ public class Usuario {
     private InetAddress ip;
     private int status;
     private int ordem;
+  
    // private Tempo tempo;
 
     //private InetAddress ip;  /** variavel para endereço ip do relogio/usuario. <br/>*/
@@ -28,7 +29,7 @@ public class Usuario {
     private int min;     /** variavel para corresponder aos minutos do relogio/usuario. <br/>*/
     private int seg;     /** variavel para corresponder aos segundos do relogio/usuario. <br/>*/
 
-    
+    //
       /** a função  a seguir  pega o endereço ip do relogio/usuario.  <br/>*/
     public InetAddress getIp() {
         return ip;
@@ -77,6 +78,13 @@ public class Usuario {
     public void setSeg(int seg) {
         this.seg = seg;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "ip=" + ip + ", status=" + status + ", ordem=" + ordem + ", hora=" + hora + ", min=" + min + ", seg=" + seg + '}';
+    }
+
+
     
-    
+        
 }
