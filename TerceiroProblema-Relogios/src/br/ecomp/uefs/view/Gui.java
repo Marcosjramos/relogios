@@ -134,41 +134,47 @@ public class Gui {
         frame.getContentPane().add(btnSetMinuto);
         panel.add(btnSetMinuto);
 
-        JButton bSegundo = new JButton("Alterar Segundos"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
+        JButton bSegundo = new JButton(" Alterar Segundos"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
         bSegundo.addActionListener(btmH);
-        bSegundo.setBounds(265, 85, 155, 30);
+        bSegundo.setBounds(266, 85, 155, 30);
         frame.getContentPane().add(bSegundo);
         panel.add(bSegundo);
 
         JButton bStart = new JButton("Start");  /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
         bStart.addActionListener(btmH);
-        bStart.setBounds(11, 140, 89, 23);
+        bStart.setBounds(11, 140, 89, 30);
         frame.getContentPane().add(bStart);
         panel.add(bStart);
 
         JButton bConectar = new JButton("Conectar"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
         bConectar.addActionListener(btmH);
-        bConectar.setBounds(11, 165, 89, 23);
+        bConectar.setBounds(11, 170, 89, 30);
         frame.getContentPane().add(bConectar);
         panel.add(bConectar);
 
         JButton bStop = new JButton("Sair"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
         bStop.addActionListener(btmH);
-        bStop.setBounds(11, 190, 89, 23);
+        bStop.setBounds(11, 199, 89, 30);
         frame.getContentPane().add(bStop);
         panel.add(bStop);
 
         drift = new JTextField(); /** cira a caixa de texto para  receber o novo drift. <br/> */
-        drift.setBounds(300, 140, 40, 23);
+        drift.setBounds(300, 142, 40, 23);
         frame.getContentPane().add(drift);
         drift.setColumns(10);
         panel.add(drift);
 
         JButton bDrift = new JButton("Alterar Drift"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
         bDrift.addActionListener(btmH);
-        bDrift.setBounds(290, 165, 89, 23);
+        bDrift.setBounds(290, 167, 110, 30);
         frame.getContentPane().add(bDrift);
         panel.add(bDrift);
+        
+        JButton bAtualizar = new JButton(" Atualizar"); /**  intanciar o botão  e set seu parametros e adicionara na no panel e o panel na tela.<br/>*/
+        bAtualizar.addActionListener(btmH);
+        bAtualizar.setBounds(150, 240, 125, 40);
+        frame.getContentPane().add(bAtualizar);
+        panel.add(bAtualizar);
     }
      /**  a seguir  a função que vai verificar   qual o botão usuario clicou  e  relizar ação escolhida.<br/>*/
     private class ButtonHandller implements ActionListener {
@@ -213,17 +219,21 @@ public class Gui {
                     }
                 }
 
-            } else if ("Alterar Segundos".equals(e.getActionCommand())) {
+            } else if (" Alterar Segundos".equals(e.getActionCommand())) {
                 if ("".equals(seg.getText())) {
                     JOptionPane.showMessageDialog(null, "Insira um valor de Segundos!!");
                 } else {
                     int aux = Integer.parseInt(seg.getText());
                     if (aux < 60) {
                         Tempo.seg = aux;
-//control.setSeg(aux);
+                       //control.setSeg(aux);
                     } 
                 }
-            } else if ("Conectar".equals(e.getActionCommand())) {
+            } else if (" Atualizar".equals(e.getActionCommand())){
+                
+                 control.Atualizar();
+                 // chama a  função  do controller  que ataulaizar o tempo
+            }else if ("Conectar".equals(e.getActionCommand())) {
                 String ip = JOptionPane.showInputDialog("Informe o IP do grupo", "");
                 System.out.println("IP do grupo - " + ip);
                 //Servidor s = new Servidor(ip, 1234);
