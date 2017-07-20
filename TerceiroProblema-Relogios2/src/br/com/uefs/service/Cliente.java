@@ -85,9 +85,9 @@ public class Cliente extends Thread {
             while (true) {
                 //new Thread(){
                 String dadosRecebidos = comunicacao(IPAddress, clientSocket);
-                if (dadosRecebidos != null) {
+               
                     operacao(dadosRecebidos);
-                }
+                
             }
 
             //clientSocket.close();
@@ -142,7 +142,6 @@ public class Cliente extends Thread {
                 System.out.println("Erro ao enviar o pacote");
                 mCont = mCont + 1;
                 Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-                //               return "{\"op\":2}";
             }
         }
 
@@ -152,9 +151,6 @@ public class Cliente extends Thread {
             dadosRecebidos = new String(receivePacket.getData());
             cont.stop();
         } catch (IOException ex) {
-            JSONObject mJ = new JSONObject();
-            mJ.put("op", 3);
-            dadosRecebidos = mJ.toString();
             // Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Cliente Pacote UDP recebido...");
