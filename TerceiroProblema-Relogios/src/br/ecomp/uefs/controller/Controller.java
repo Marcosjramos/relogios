@@ -101,5 +101,11 @@ public class Controller {
         return rel;
     }
     
+    public void Atualizar(){
+        
+     System.out.println("Atualizar tempo \n");
+                
+    }
+    
     
 }
